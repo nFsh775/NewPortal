@@ -64,4 +64,13 @@ best_author
 # Вывожу лучший пост на основе лайков и дислайков:
 best_post = Post.objects.order_by('-rating').values('created_at','author__user__username', 'rating', 'title').first()
 
+# Вывожу дату добавления, username автора, заголовок и превью лучшей статьи
+best_post = Post.objects.order_by('-rating').first()
+best_post.created_at
+best_post.author.user.username
+best_post.rating
+best_post.title
+best_post.preview()
 
+# Вывожу все комментарии(дата, пользователь, рейтинг, текст) к этой статье:
+best_post_comments = Comment.objects.filter(post=best_post).values('created_at', 'user__username', 'rating', 'text')
